@@ -36,4 +36,9 @@ public class OrderService {
     public Order getOrder(UUID orderId) {
         return orderStore.get(orderId);
     }
+
+    public void rollbackOrder(DeliveryMessage deliveryMessage) {
+        Order order = this.orderStore.get(deliveryMessage.getOrderId());
+        order.cancelOrder(deliveryMessage.getErrorType());
+    }
 }
